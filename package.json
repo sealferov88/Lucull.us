@@ -1,0 +1,27 @@
+{
+  "name": "lucull.us",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodeamon --exec npm run start",
+    "babel": "babel src -d build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^7.0.0-beta.3",
+    "babel-preset-stage-3": "^7.0.0-beta.3",
+    "babel-register": "^7.0.0-beta.3",
+    "kcors": "^2.2.1",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.3.1",
+    "monk": "latest"
+  }
+}
