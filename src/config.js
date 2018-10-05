@@ -1,5 +1,5 @@
 
-const dbURL = 'localhost/lucullus';
+const dbURL = 'localhost/lucullus'
 
 
-export default dbURL;
+export default dbURL

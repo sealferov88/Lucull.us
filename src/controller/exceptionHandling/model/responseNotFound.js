@@ -1,7 +1,5 @@
 const responseNotFound = (params, ctx) => {
-    ctx.body = { messageCode: 'NOT_FOUND' };
-    ctx.type = 'json';
-    ctx.status = 404;
-};
+    ctx.throw(400,  'NOT FOUND')
+}
 
-export default responseNotFound;
+export default responseNotFound

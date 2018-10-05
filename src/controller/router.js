@@ -1,5 +1,5 @@
-import KoaRouter from 'koa-router';
+import KoaRouter from 'koa-router'
 
-const api = KoaRouter();
+const api = KoaRouter()
 
-export default api;
+export default api

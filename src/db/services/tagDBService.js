@@ -1,19 +1,19 @@
-import { tags } from "../collections";
+import { tags } from '../collections'
 
 
 class TagDBService {
 
     static findTagByName(name) {
-        return tags.find({name: name});
+        return tags.find({name: name})
     }
 
     static findTagById(id) {
-        return tags.find({id: id});
+        return tags.find({id: id})
     }
 
     static createTags(tag) {
-        return tags.insert(tag);
+        return tags.insert(tag)
     }
 }
 
-export default TagDBService;
+export default TagDBService
