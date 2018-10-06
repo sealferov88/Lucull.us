@@ -1,4 +1,4 @@
-class Article {
+export default class Article {
 
     constructor(title, author, content, tags) {
         this._title = title
@@ -40,5 +40,3 @@ class Article {
         this._tags = value
     }
 }
-
-export default Article
