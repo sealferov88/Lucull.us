@@ -3,10 +3,10 @@ import responseSuccess from './model/response'
 import responseNotFound from './exceptionHandling/model/responseNotFound'
 import api from './router'
 import validator, {
+    array,
     object,
     string,
 } from 'koa-context-validator';
-import Article from "../model/article";
 
 
 const articleAPI = api
@@ -34,7 +34,8 @@ articleAPI.post('/api/article', validator({
     body: object().keys({
         title: string().required(),
         author: string().required(),
-        content: string().required()
+        content: string().required(),
+        tag: array().required()
     }),
 }), async ctx => {
     ctx.body = await ArticleDBService.createArticles(ctx.request.body)
