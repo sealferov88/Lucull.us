@@ -2,6 +2,11 @@ import ArticleDBService from '../db/services/articleDBService'
 import responseSuccess from './model/response'
 import responseNotFound from './exceptionHandling/model/responseNotFound'
 import api from './router'
+import validator, {
+    object,
+    string,
+} from 'koa-context-validator';
+import Article from "../model/article";
 
 
 const articleAPI = api
@@ -25,7 +30,13 @@ articleAPI.get('/api/article/tag/:tag', async ctx => {
     result.length ? responseSuccess(result, ctx) : responseNotFound(param, ctx)
 })
 
-articleAPI.post('/api/article', async ctx => {
+articleAPI.post('/api/article', validator({
+    body: object().keys({
+        title: string().required(),
+        author: string().required(),
+        content: string().required()
+    }),
+}), async ctx => {
     ctx.body = await ArticleDBService.createArticles(ctx.request.body)
     ctx.type = 'json'
     ctx.status = 200
