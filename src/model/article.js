@@ -1,42 +1,42 @@
 export default class Article {
 
     constructor(title, author, content, tags) {
-        this._title = title
-        this._author = author
-        this._content = content
-        this._tags = tags
+        this.title = title
+        this.author = author
+        this.content = content
+        this.tags = tags
+    }
+
+    get _title() {
+        return this.title
     }
 
 
-    get title() {
-        return this._title
+    set _title(value) {
+        this.title = value
     }
 
-    set title(value) {
-        this._title = value
+    get _author() {
+        return this.author
     }
 
-    get author() {
-        return this._author
+    set _author(value) {
+        this.author = value
     }
 
-    set author(value) {
-        this._author = value
+    get _content() {
+        return this.content
     }
 
-    get content() {
-        return this._content
+    set _content(value) {
+        this.content = value
     }
 
-    set content(value) {
-        this._content = value
+    get _tags() {
+        return this.tags
     }
 
-    get tags() {
-        return this._tags
-    }
-
-    set tags(value) {
-        this._tags = value
+    set _tags(value) {
+        this.tags = value
     }
 }

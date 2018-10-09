@@ -1,23 +1,9 @@
 import { articles } from '../collections'
 
+const findArticleByTitle = async title => articles.find({'title': title})
+const findArticleByAuthor = async author => articles.find({'author': author})
+const findArticleByTag = async tag => articles.find({'tags': {'$in': [tag]}})
+const insertArticles = async article => articles.insert(article)
 
-class ArticleDBService {
 
-    static findArticleByTitle(title) {
-        return articles.find({title: title})
-    }
-
-    static findArticleByAuthor(author) {
-        return articles.find({author: author})
-    }
-
-    static findArticleByTag(tag) {
-        return articles.find({tags: tag})
-    }
-
-    static createArticles(article) {
-        return articles.insert(article)
-    }
-}
-
-export default ArticleDBService
+export {findArticleByTitle, findArticleByAuthor, findArticleByTag, insertArticles}

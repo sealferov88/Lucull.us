@@ -1,11 +1,15 @@
 import Koa from 'koa'
-import articleAPI from './controller/articleAPI'
-import config from './config'
+import articleQueryAPI from './controller/API/query/articleQueryAPI'
+import error from 'koa-json-error'
+import articleCommandAPI from './controller/API/command/articleCommandAPI'
+//import config from './config'
 import bodyParser from 'koa-bodyparser'
+//import _ from 'lodash'
 import cors from 'kcors'
-import tagAPI from './controller/tagAPI'
 import cache from 'koa-cache-lite'
 import createLogger from 'concurrency-logger'
+import tagQueryAPI from './controller/API/query/tagQueryAPI'
+
 
 
 const logger = createLogger()
@@ -24,19 +28,33 @@ cache.configure({
 })
 
 
+
 const app = new Koa()
     .use(cors())
+    .use(error((err) => {
+        let name = err.name
+        let message = err.message
+        let status =  name && name === 'ValidationError' ? 400 : err.status
+        return {
+            status: status,
+            message: message,
+            stackTrace: err.stackTrace
+        }
+    }
+    ))
     .use(logger)
     .use(cache.middleware())
-    .use(async (ctx, next) => {
+    /*.use(async (ctx, next) => {
         ctx.state.collections = config.collections
         ctx.state.authorizationHeader = `Key ${config.key}`
         await next()
-    })
+    })*/
     .use(bodyParser())
-    .use(articleAPI.routes())
-    .use(articleAPI.allowedMethods())
-    .use(tagAPI.routes())
-    .use(tagAPI.allowedMethods())
+    .use(articleQueryAPI.routes())
+    .use(articleQueryAPI.allowedMethods())
+    .use(articleCommandAPI.routes())
+    .use(articleCommandAPI.allowedMethods())
+    .use(tagQueryAPI.routes())
+    .use(tagQueryAPI.allowedMethods())
 
 export default app

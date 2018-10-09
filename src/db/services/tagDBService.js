@@ -1,19 +1,27 @@
-import { tags } from '../collections'
+import {tags} from '../collections'
 
 
-class TagDBService {
-
-    static findTagByName(name) {
-        return tags.find({name: name})
-    }
-
-    static findTagById(id) {
-        return tags.find({id: id})
-    }
-
-    static createTags(tag) {
-        return tags.insert(tag)
-    }
+const findTagByName = name => tags.find({name: name})
+const findTagById = id => tags.find({id: id})
+const insertTags = tag => tags.insert(tag)
+const sortTags = () => tags.aggregate([
+    {
+        $lookup:
+            {
+                from: 'likes',
+                localField: 'name',
+                foreignField: 'tags',
+                as: 'top'
+            }
+    }, {  $project: {
+        length: {'$size': top }
+    }},  {$sort: {
+        length: -1
+    }}]
+)
+const upsert = tag => {
+    console.log(tag)
+    return tags.update({'name': tag.name}, tag, {upsert: true})
 }
 
-export default TagDBService
+export {findTagByName, findTagById, insertTags, upsert, sortTags}

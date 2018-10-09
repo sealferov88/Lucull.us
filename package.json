@@ -27,8 +27,10 @@
     "koa-cache-lite": "^3.8.8",
     "koa-compress": "^3.0.0",
     "koa-context-validator": "^0.4.1",
+    "koa-json-error": "^3.1.2",
     "koa-router": "^7.4.0",
-    "monk": "latest"
+    "monk": "latest",
+    "lodash": "latest"
   },
   "devDependencies": {
     "eslint": "^5.6.1"

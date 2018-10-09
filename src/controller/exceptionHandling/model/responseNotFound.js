@@ -1,5 +1,5 @@
 const responseNotFound = (params, ctx) => {
-    ctx.throw(400,  'NOT FOUND')
+    ctx.throw(404,  'NOT FOUND')
 }
 
 export default responseNotFound
