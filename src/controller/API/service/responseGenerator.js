@@ -1,5 +1,5 @@
 import responseSuccess from '../../model/response'
-import responseNotFound from '../../exceptionHandling/model/responseNotFound'
+import responseNotFound from '../../model/responseNotFound'
 
 
 const generateResponse = (ctx, result) => {

@@ -6,13 +6,12 @@ import articleCommandAPI from './controller/API/command/articleCommandAPI'
 import bodyParser from 'koa-bodyparser'
 import helmet from 'koa-helmet'
 //import _ from 'lodash'
-import Enforcer from 'casbin'
-import authz from  'koa-authz'
+import compress from  'koa-compress'
 import cors from 'kcors'
 import cache from 'koa-cache-lite'
 import createLogger from 'concurrency-logger'
 import tagQueryAPI from './controller/API/query/tagQueryAPI'
-import tagCommandAPI from "./controller/API/command/tagCommandAPI";
+import tagCommandAPI from './controller/API/command/tagCommandAPI'
 
 
 
@@ -21,7 +20,7 @@ const logger = createLogger()
 cache.configure({
     routes: {
 
-        '/api/article/:title': {
+        '/api/article/title/:title': {
             timeout: 1000,
             minimumSize: 1
         },
@@ -35,6 +34,13 @@ cache.configure({
 
 const app = new Koa()
     .use(cors())
+    .use(compress({
+        filter:  content_type => {
+            return /json/i.test(content_type)
+        },
+        threshold: 256,
+        flush: require('zlib').Z_SYNC_FLUSH
+    }))
     .use(error((err) => {
         let name = err.name
         let message = err.message
@@ -47,7 +53,7 @@ const app = new Koa()
     }
     ))
     .use(logger)
-    .use(cache.middleware())
+ //   .use(cache.middleware())
     /*.use(async (ctx, next) => {
         ctx.state.collections = config.collections
         ctx.state.authorizationHeader = `Key ${config.key}`
