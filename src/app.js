@@ -53,7 +53,7 @@ const app = new Koa()
     }
     ))
     .use(logger)
- //   .use(cache.middleware())
+//   .use(cache.middleware())
     /*.use(async (ctx, next) => {
         ctx.state.collections = config.collections
         ctx.state.authorizationHeader = `Key ${config.key}`
