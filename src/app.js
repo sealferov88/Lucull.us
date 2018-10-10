@@ -4,11 +4,15 @@ import error from 'koa-json-error'
 import articleCommandAPI from './controller/API/command/articleCommandAPI'
 //import config from './config'
 import bodyParser from 'koa-bodyparser'
+import helmet from 'koa-helmet'
 //import _ from 'lodash'
+import Enforcer from 'casbin'
+import authz from  'koa-authz'
 import cors from 'kcors'
 import cache from 'koa-cache-lite'
 import createLogger from 'concurrency-logger'
 import tagQueryAPI from './controller/API/query/tagQueryAPI'
+import tagCommandAPI from "./controller/API/command/tagCommandAPI";
 
 
 
@@ -49,6 +53,7 @@ const app = new Koa()
         ctx.state.authorizationHeader = `Key ${config.key}`
         await next()
     })*/
+    .use(helmet())
     .use(bodyParser())
     .use(articleQueryAPI.routes())
     .use(articleQueryAPI.allowedMethods())
@@ -56,5 +61,7 @@ const app = new Koa()
     .use(articleCommandAPI.allowedMethods())
     .use(tagQueryAPI.routes())
     .use(tagQueryAPI.allowedMethods())
+    .use(tagCommandAPI.routes())
+    .use(tagCommandAPI.allowedMethods())
 
 export default app

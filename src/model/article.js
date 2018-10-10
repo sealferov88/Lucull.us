@@ -1,10 +1,13 @@
 export default class Article {
 
-    constructor(title, author, content, tags) {
+    constructor(title, author, date, content, category, tags) {
         this.title = title
         this.author = author
         this.content = content
         this.tags = tags
+        this.category = category
+        this.likes = []
+        this._date = date
     }
 
     get _title() {
@@ -24,6 +27,15 @@ export default class Article {
         this.author = value
     }
 
+
+    get _date() {
+        return this.date
+    }
+
+    set _date(value) {
+        this.date = value
+    }
+
     get _content() {
         return this.content
     }
@@ -38,5 +50,22 @@ export default class Article {
 
     set _tags(value) {
         this.tags = value
+    }
+
+
+    get _category() {
+        return this.category
+    }
+
+    set _category(value) {
+        this.category = value
+    }
+
+    get _likes() {
+        return this.likes
+    }
+
+    set _likes(value) {
+        this.likes = value
     }
 }

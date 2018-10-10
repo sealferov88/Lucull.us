@@ -1,41 +1,58 @@
-import {findAuthorByName} from '../../db/services/authorDBService'
-import {findTagByName, insertTags} from '../../db/services/tagDBService'
 import Tag from '../../model/tag'
-import Article from '../../model/article'
+import CATEGORIES from '../../model/category'
+import {getAuthorByName} from '../query/authorAggreagateService'
+import {getTagByName} from '../query/tagAggregateService'
+import {createTag} from "../command/commandExecutor";
 
 const handlers = []
 handlers.push(async article => {
-    let author = await findAuthorByName(article.author)
-    if (!author || !author.length) {
-        throw Error(`${article.author} not found in store`)
-    }
+    let authorName = article.author
+    let author = await getAuthorByName(authorName)
+    return new Promise(((resolve, reject) => {
+
+        if (!author || !author.length) {
+            reject(new Error(`${authorName} not found in store`))
+        }
+        resolve()
+    }))
+
 },
 async article => {
-    console.log(article)
+    let category = article.category
+    return new Promise((resolve, reject) => {
+        if (!CATEGORIES.includes(category)) {
+            reject(new Error(`There is no such category: ${category}`))
+        }
+        resolve()
+    })
+
+},
+async article => {
     let tags = article.tags
-    tags.forEach( async tagName => {
+    tags.forEach(async tagName => {
         if (tagName) {
-            let result = await findTagByName(tagName)
+            let result = await getTagByName(tagName)
             if (!result.length) {
-                await insertTags(new Tag(tagName))
+                await createTag(new Tag(tagName))
             }
         }
     })
 }, async article => {
     let content = article.content
-    if (content && content.length > 100000) {
-        throw Error(`${article.name} exceeded symbols limit`)
-    }
+    return new Promise((resolve, reject) => {
+        if (content && content.length > 100000) {
+            reject(new Error(`${article.name} exceeded symbols limit`))
+        }
+        resolve()
+    })
+
 })
 
 
 const articleHandlers = async articleCommand => {
-    handlers.forEach( async handler => {
-        handler(articleCommand)
-    })
-    return new Promise(resolve => {
-        resolve(new Article(articleCommand.title, articleCommand.author, articleCommand.content, articleCommand.tags))
-    })
+    for (let i = 0; i < handlers.length; i++) {
+        await handlers[i](articleCommand)
+    }
 }
 
 export default articleHandlers

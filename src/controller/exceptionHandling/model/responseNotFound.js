@@ -1,4 +1,4 @@
-const responseNotFound = (params, ctx) => {
+const responseNotFound = (ctx) => {
     ctx.throw(404,  'NOT FOUND')
 }
 

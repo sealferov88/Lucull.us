@@ -23,14 +23,18 @@
     "ioredis": "^4.0.0",
     "kcors": "^2.2.1",
     "koa": "^2.5.3",
+    "koa-authz": "^1.0.0",
     "koa-bodyparser": "^3.2.0",
     "koa-cache-lite": "^3.8.8",
     "koa-compress": "^3.0.0",
     "koa-context-validator": "^0.4.1",
+    "koa-helmet": "^4.0.0",
     "koa-json-error": "^3.1.2",
     "koa-router": "^7.4.0",
+    "lodash": "latest",
+    "moment": "^2.22.2",
     "monk": "latest",
-    "lodash": "latest"
+    "casbin": "latest"
   },
   "devDependencies": {
     "eslint": "^5.6.1"
