@@ -11,7 +11,7 @@ const topArticlesByLikesCount = async () => articles.aggregate([
                 likes: -1
             }
     }, {
-        $limit: 5
+        $limit: 10
     }]
 )
 const topArticlesByDate = async () => articles.aggregate([
@@ -21,7 +21,7 @@ const topArticlesByDate = async () => articles.aggregate([
                 date: -1
             }
     }, {
-        $limit: 5
+        $limit: 10
     }]
 )
 
