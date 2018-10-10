@@ -3,7 +3,7 @@ import responseNotFound from '../../model/responseNotFound'
 
 
 const generateResponse = (ctx, result) => {
-    result.length ? responseSuccess(result, ctx) : responseNotFound(ctx)
+    result || result.length ? responseSuccess(result, ctx) : responseNotFound(ctx)
 }
 
 export default generateResponse

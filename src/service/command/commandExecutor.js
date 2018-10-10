@@ -4,7 +4,7 @@ import Article from '../../model/article'
 import moment from 'moment'
 import {insertTags} from '../../db/services/tagDBService'
 import Tag from '../../model/tag'
-import {insertAuthor} from "../../db/services/authorDBService";
+import {insertAuthor} from '../../db/services/authorDBService'
 
 
 const createArticle = async articleCommand => {
